@@ -6,7 +6,7 @@
 
 class InputManager {
  public:
-  explicit
+  explicit InputManager(std::string filePath);
  private:
   std::string fileContent;
 };

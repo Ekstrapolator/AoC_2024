@@ -3,3 +3,16 @@
 //
 
 #include "InputManager.hpp"
+#include <fstream>
+
+InputManager::InputManager(const std::string filePath) {
+  std::ifstream inputFile(filePath);
+  if (!inputFile.is_open())
+  {
+    fprintf(stderr, "func::%s unable to open file\n", __func__);
+    std::terminate();
+  }
+
+  fileContent = std::string(std::istreambuf_iterator<char>(inputFile), std::istreambuf_iterator<char>());
+
+};
