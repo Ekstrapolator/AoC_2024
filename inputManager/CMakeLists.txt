@@ -1,4 +1,6 @@
-add_library(inputManager_lib InputManager.cpp)
+add_library(inputManager_lib
+        InputManager.cpp
+)
 
 target_include_directories(inputManager_lib
     PUBLIC

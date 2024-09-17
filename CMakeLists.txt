@@ -10,5 +10,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 add_subdirectory(inputManager)
+add_subdirectory(tokenizer)
 
 add_subdirectory(day_01)
