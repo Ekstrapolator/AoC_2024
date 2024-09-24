@@ -14,4 +14,5 @@ target_link_libraries(${APP_NAME}
         fmt::fmt
         inputManager_lib
         tokenizer_lib
+        outputBuilder_lib
 )
