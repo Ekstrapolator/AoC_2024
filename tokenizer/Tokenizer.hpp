@@ -8,7 +8,7 @@
 class Tokenizer {
  public:
   Tokenizer() = default;
-  std::vector<std::string>& parse(std::string& text, std::string delimiters);
+  [[nodiscard]] std::vector<std::string>& parse(std::string& text, std::string delimiters);
  private:
   std::vector<std::string> tokens;
 };
