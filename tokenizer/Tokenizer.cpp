@@ -24,5 +24,9 @@ std::vector<std::string>& Tokenizer::parse(std::string& text, const std::string 
     }
   }
 
+  if(!parsed.empty()){
+    tokens.push_back(parsed);
+  }
+
   return tokens;
 }
