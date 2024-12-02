@@ -5,7 +5,7 @@
 #include "Tokenizer.hpp"
 #include <set>
 
-std::vector<std::string>& Tokenizer::parse(std::string& text, const std::string delimiters)
+std::vector<std::string> Tokenizer::parse(std::string& text, const std::string delimiters)
 {
   std::set<char> inputDelimiters(delimiters.begin(),delimiters.end());
   std::string parsed;

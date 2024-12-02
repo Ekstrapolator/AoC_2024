@@ -2,13 +2,14 @@
 // Created by wolek on 20.09.24.
 //
 
-#include "OutputBuilder.hpp"
+
 #include <cctype>
-#include <set>
 #include <cassert>
 #include <algorithm>
 #include <numeric>
 
+#include "OutputBuilder.hpp"
+#include "fmt/format.h"
 
 std::vector<std::pair<int, int>> OutputBuilder::getFirstAndLastNumber(std::vector<std::string> &tokens) {
   std::vector<std::pair<int, int>> numbers;
@@ -113,4 +114,40 @@ size_t OutputBuilder::getDay01_part02(std::vector<std::string> &tokens) {
     resoult += count * num;
   }
   return resoult;
+}
+
+
+
+safeRaports OutputBuilder::getDay02_part01(std::vector<std::string> tokens) {
+  safeRaports count{0};
+  for (auto tok : tokens)
+  {
+    std::string num;
+    std::vector<int> raport;
+    for (const auto& c : tok)
+    {
+      if (c == ' ')
+      {
+        raport.push_back(std::stoi(num));
+        num.clear();
+      }
+      else{
+      num.push_back(c);
+      }
+    }
+    if (isRaportSafe(raport))
+    {
+      count++;
+    }
+    else
+    {
+      fmt::print("Unsafe raport\n");
+    }
+  }
+return 0;
+}
+
+bool OutputBuilder::isRaportSafe(std::vector<int>& inRaport) {
+
+return 0;
 }
