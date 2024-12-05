@@ -10,6 +10,7 @@
 
 #include "OutputBuilder.hpp"
 #include "fmt/format.h"
+#include <regex>
 
 std::vector<std::pair<int, int>> OutputBuilder::getFirstAndLastNumber(std::vector<std::string> &tokens) {
   std::vector<std::pair<int, int>> numbers;
@@ -111,7 +112,7 @@ size_t OutputBuilder::getDay01_part02(std::vector<std::string> &tokens) {
   return resoult;
 }
 
-safeRaports OutputBuilder::getDay02_part01(std::vector<std::string> tokens) {
+safeRaports OutputBuilder::getDay02_part01(std::vector<std::string> &tokens) {
   safeRaports count{0};
   for (auto tok : tokens) {
     std::string num;
@@ -143,6 +144,21 @@ void printVec(const std::vector<int> & elemets) {
   }
 }
 
+size_t OutputBuilder::getDay03_part01(std::vector<std::string> &tokens) {
+  //mul(158,758)
+  std::vector<std::pair<int,int>> mul;
+  std::regex getNum(R"(\d+)");
+  for (auto token : tokens) {
+    std::sregex_iterator it(token.begin(),token.end(), getNum);
+    mul.emplace_back(std::stoi(it->str()), std::stoi(it++->str()));
+  }
+  size_t res{0};
+  for (auto m : mul)
+  {
+    res += m.first * m.second;
+  }
+  return res;
+}
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
   std::vector<int> ascendig = inRaport;
   std::vector<int> descndig = inRaport;
