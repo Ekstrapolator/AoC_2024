@@ -124,6 +124,10 @@ safeRaports OutputBuilder::getDay02_part01(std::vector<std::string> tokens) {
         num.push_back(c);
       }
     }
+    if (!num.empty())
+    {
+    raport.push_back(std::stoi(num));
+    }
     if (isRaportSafe(raport)) {
       count++;
     } else {
@@ -131,6 +135,12 @@ safeRaports OutputBuilder::getDay02_part01(std::vector<std::string> tokens) {
     }
   }
   return count;
+}
+
+void printVec(const std::vector<int> & elemets) {
+  for (auto elem : elemets) {
+    fmt::print("{} ", elem);
+  }
 }
 
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
@@ -143,19 +153,30 @@ bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
   }
 
   if (ascendig == inRaport) {
+  std::vector<int> distance;
     for (size_t i{1}; i < inRaport.size(); i++) {
-      if (abs(inRaport.at(i) - inRaport.at(i - 1)) > 3 or abs(inRaport.at(i) - inRaport.at(i - 1)) == 0) {
+    // 2-1 > 3 or 5 <= 3
+      if (inRaport.at(i) - inRaport.at(i - 1) > 3 or inRaport.at(i) <= inRaport.at(i - 1)) {
         return false;
       }
+      distance.push_back(inRaport.at(i) - inRaport.at(i - 1));
     }
+    fmt::print("A report safe\t");
+    printVec(distance);
+    fmt::print("\n");
     return true;
   } else {
     // descending by 1 or 2
+    std::vector<int> distance;
     for (size_t i{1}; i < inRaport.size(); i++) {
-      if (abs(inRaport.at(i) - inRaport.at(i - 1)) > 3 or abs(inRaport.at(i) - inRaport.at(i - 1)) == 0) {
+      if (inRaport.at(i - 1) - inRaport.at(i) > 3 or inRaport.at(i) >= inRaport.at(i - 1)) {
         return false;
       }
+      distance.push_back(inRaport.at(i - 1) - inRaport.at(i));
     }
+    fmt::print("D report safe\t");
+    printVec(distance);
+    fmt::print("\n");
     return true;
   }
 }
