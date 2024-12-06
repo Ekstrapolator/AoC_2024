@@ -16,6 +16,7 @@ class OutputBuilder {
   size_t getDay01_part02(std::vector<std::string> &tokens);
   safeRaports getDay02_part01(std::vector<std::string> &tokens);
   size_t getDay03_part01(std::vector<std::string> &tokens);
+  size_t getDay04_part01(std::vector<std::string> &tokens);
 
 
 

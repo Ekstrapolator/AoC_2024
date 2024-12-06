@@ -159,6 +159,22 @@ size_t OutputBuilder::getDay03_part01(std::vector<std::string> &tokens) {
   }
   return res;
 }
+
+bool isValidChar(const char in, const int pos)
+{
+  if (const std::string reference{"XMAS"}; in != reference.at(pos))
+  {
+  return false;
+  }
+  return true;
+}
+
+size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
+  auto rows = tokens.size();
+  auto columns = tokens.at(0).size();
+  fmt::print("row {} col {}\n", rows, columns);
+}
+
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
   std::vector<int> ascendig = inRaport;
   std::vector<int> descndig = inRaport;
