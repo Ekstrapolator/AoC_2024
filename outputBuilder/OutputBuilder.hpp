@@ -8,6 +8,23 @@
 
 typedef size_t safeRaports;
 
+enum Directions {
+  up = 0,
+  upRight = 1,
+  right = 3,
+  downRight = 3,
+  down = 4,
+  downLeft = 5,
+  left = 6,
+  upLeft = 7,
+};
+
+struct Point
+{
+  int row;
+  int col;
+};
+
 class OutputBuilder {
  public:
   OutputBuilder() = default;

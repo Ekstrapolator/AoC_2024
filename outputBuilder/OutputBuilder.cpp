@@ -169,9 +169,29 @@ bool isValidChar(const char in, const int pos)
   return true;
 }
 
+std::vector<Directions> getValidDir(Point point, int rowMax, int colMax) {
+  constexpr int len{4};
+  std::vector<Directions> validDir;
+  //check down
+  if (point.row + len >= rowMax) {
+    validDir.push_back(Directions::down);
+  }
+  //check up
+  if ()
+}
+
 size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
-  auto rows = tokens.size();
-  auto columns = tokens.at(0).size();
+  auto rowsMax = tokens.size();
+  auto columnsMax = tokens.at(0).size();
+
+  for(auto row{0}; row < rowsMax; row++)
+  {
+    for(auto column{0}; column < columnsMax; column++)
+    {
+
+    }
+  }
+  fmt::print("Char at 6,0 {}\n", tokens.at(6).at(1));
   fmt::print("row {} col {}\n", rows, columns);
 }
 
