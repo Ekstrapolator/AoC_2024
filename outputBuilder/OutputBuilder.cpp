@@ -11,6 +11,7 @@
 #include "OutputBuilder.hpp"
 #include "fmt/format.h"
 #include <regex>
+#include <set>
 
 std::vector<std::pair<int, int>> OutputBuilder::getFirstAndLastNumber(std::vector<std::string> &tokens) {
   std::vector<std::pair<int, int>> numbers;
@@ -169,15 +170,25 @@ bool isValidChar(const char in, const int pos)
   return true;
 }
 
-std::vector<Directions> getValidDir(Point point, int rowMax, int colMax) {
-  constexpr int len{4};
-  std::vector<Directions> validDir;
-  //check down
-  if (point.row + len >= rowMax) {
-    validDir.push_back(Directions::down);
-  }
-  //check up
-  if ()
+std::set<Directions> getValidDir(Point point, size_t rowMax, size_t colMax) {
+  constexpr int len{3};
+  std::set<Directions> validDir;
+  bool canMoveDown = point.row + len <= rowMax;
+  bool canMoveUp = point.row - len >= 0;
+  bool canMoveRight = point.col + len <= colMax;
+  bool canMoveLeft = point.col - len >= 0;
+
+  if (canMoveDown) validDir.insert(Directions::down);
+  if (canMoveUp) validDir.insert(Directions::up);
+  if (canMoveRight) validDir.insert(Directions::right);
+  if (canMoveLeft) validDir.insert(Directions::left);
+
+  if (canMoveUp && canMoveRight) validDir.insert(Directions::upRight);
+  if (canMoveUp && canMoveLeft) validDir.insert(Directions::upLeft);
+  if (canMoveDown && canMoveRight) validDir.insert(Directions::downRight);
+  if (canMoveDown && canMoveLeft) validDir.insert(Directions::downLeft);
+
+return validDir;
 }
 
 size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
@@ -188,11 +199,34 @@ size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
   {
     for(auto column{0}; column < columnsMax; column++)
     {
+      if(tokens.at(row).at(column) == 'X')
+      {
+        std::set<Directions> directions = getValidDir({row,column},rowsMax, columnsMax);
+        if(!directions.empty())
+        {
+          for (auto dir : directions)
+          {
+            switch (dir) {
 
+              case up:
+                break;
+              case upRight:break;
+              case right:break;
+              case downRight:break;
+              case down:break;
+              case downLeft:break;
+              case left:break;
+              case upLeft:break;
+            }
+          }
+        }
+      }
     }
   }
   fmt::print("Char at 6,0 {}\n", tokens.at(6).at(1));
-  fmt::print("row {} col {}\n", rows, columns);
+  fmt::print("row {} col {}\n", rowsMax, columnsMax);
+
+  return 0xff;
 }
 
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {

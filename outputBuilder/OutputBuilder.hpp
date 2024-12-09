@@ -11,7 +11,7 @@ typedef size_t safeRaports;
 enum Directions {
   up = 0,
   upRight = 1,
-  right = 3,
+  right = 2,
   downRight = 3,
   down = 4,
   downLeft = 5,
