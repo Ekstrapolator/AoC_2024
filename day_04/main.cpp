@@ -15,7 +15,7 @@ int main(int argv, const char** argc)
   fmt::print("Current path: {}\n", path.c_str());
 
   Tokenizer tokenizer;
-  InputManager inputOne("day_04/input_01_test.data");
+  InputManager inputOne("day_04/input_01.data");
   auto input = inputOne.getInput();
   auto grid = tokenizer.parse(input, "\n");
 

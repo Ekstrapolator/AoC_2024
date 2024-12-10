@@ -173,9 +173,11 @@ bool isValidChar(const char in, const int pos)
 std::set<Directions> getValidDir(Point point, size_t rowMax, size_t colMax) {
   constexpr int len{3};
   std::set<Directions> validDir;
-  bool canMoveDown = point.row + len <= rowMax;
+  // vector numeration starts from 0 so we need to subtract one
+  bool canMoveDown = point.row + len <= rowMax - 1;
+  bool canMoveRight = point.col + len <= colMax - 1;
+
   bool canMoveUp = point.row - len >= 0;
-  bool canMoveRight = point.col + len <= colMax;
   bool canMoveLeft = point.col - len >= 0;
 
   if (canMoveDown) validDir.insert(Directions::down);
@@ -191,10 +193,78 @@ std::set<Directions> getValidDir(Point point, size_t rowMax, size_t colMax) {
 return validDir;
 }
 
+std::vector<std::string> getWordsFromDir(std::set<Directions>& directions, std::vector<std::string> &tokens, Point currentLoc)
+{
+  constexpr int len{4};
+  std::vector<std::string> words(5);
+  for (auto dir : directions) {
+    std::string word{};
+    switch (dir) {
+      case up:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row - i).at(currentLoc.col));
+        }
+        words.push_back(word);
+        break;
+      case upRight:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row - i).at(currentLoc.col + i));
+        }
+        words.push_back(word);
+      break;
+      case right:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row).at(currentLoc.col + i));
+        }
+      words.push_back(word);
+      break;
+      case downRight:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row + i).at(currentLoc.col + i));
+        }
+      words.push_back(word);
+      break;
+      case down:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row + i).at(currentLoc.col));
+        }
+      words.push_back(word);
+      break;
+      case downLeft:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row + i).at(currentLoc.col - i));
+        }
+      words.push_back(word);
+      break;
+      case left:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row).at(currentLoc.col - i));
+        }
+      words.push_back(word);
+      break;
+      case upLeft:
+        for (auto i{0}; i < len; i++) {
+          word.push_back(tokens.at(currentLoc.row - i).at(currentLoc.col - i));
+        }
+      words.push_back(word);
+      break;
+    }
+  }
+  return words;
+}
+
+void getXmasCount(std::vector<std::string> &words, size_t &xmasCount) {
+  for (auto word : words) {
+    if (word == "XMAS") {
+      xmasCount++;
+    }
+  }
+}
+
 size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
   auto rowsMax = tokens.size();
   auto columnsMax = tokens.at(0).size();
-
+  size_t xmasCount{0};
   for(auto row{0}; row < rowsMax; row++)
   {
     for(auto column{0}; column < columnsMax; column++)
@@ -204,29 +274,16 @@ size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
         std::set<Directions> directions = getValidDir({row,column},rowsMax, columnsMax);
         if(!directions.empty())
         {
-          for (auto dir : directions)
-          {
-            switch (dir) {
-
-              case up:
-                break;
-              case upRight:break;
-              case right:break;
-              case downRight:break;
-              case down:break;
-              case downLeft:break;
-              case left:break;
-              case upLeft:break;
-            }
-          }
+          std::vector<std::string> words = getWordsFromDir(directions, tokens, {row, column});
+          getXmasCount(words, xmasCount);
         }
       }
     }
   }
   fmt::print("Char at 6,0 {}\n", tokens.at(6).at(1));
   fmt::print("row {} col {}\n", rowsMax, columnsMax);
-
-  return 0xff;
+  fmt::print("XmasCount {}\n", xmasCount);
+  return xmasCount;
 }
 
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
