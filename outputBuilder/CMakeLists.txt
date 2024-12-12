@@ -11,4 +11,5 @@ target_include_directories(outputBuilder_lib
 target_link_libraries(outputBuilder_lib
         PRIVATE
         fmt::fmt
+        tokenizer_lib
 )

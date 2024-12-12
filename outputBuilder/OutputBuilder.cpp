@@ -286,6 +286,40 @@ size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
   return xmasCount;
 }
 
+
+size_t OutputBuilder::getDay05_part01(PageVec &pages, RulesMap &rules) {
+  PageVec correctOrderRaports;
+  for (const auto &page : pages) {
+    // loop over iterator for easier calculation of distance
+    bool raportIsCorrect{true};
+    for (auto val = page.begin(); val != page.end(); ++val) {
+      auto rule = rules.find(*val);
+      if (rule != rules.end()) {
+        auto pageDistance = std::distance(val, page.end());
+        for (const auto &ruleVal : rule->second) {
+          auto ruleInPage = std::find(page.begin(), page.end(), ruleVal);
+          //TODO check if rule was found
+          auto ruleInPageDistance = std::distance(ruleInPage, page.end());
+          if (pageDistance > ruleInPageDistance) {
+            //fmt::print("Rule is correct");
+          } else {
+            raportIsCorrect = false;
+          }
+        }
+      }
+    }
+    if (raportIsCorrect) {
+      correctOrderRaports.push_back(page);
+    }
+  }
+  size_t sumOfCorrectRaports{0};
+  for (auto raport : correctOrderRaports)
+  {
+    sumOfCorrectRaports += raport.at(raport.size() / 2);
+  }
+  return sumOfCorrectRaports;
+}
+
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
   std::vector<int> ascendig = inRaport;
   std::vector<int> descndig = inRaport;

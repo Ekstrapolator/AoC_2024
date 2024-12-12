@@ -15,13 +15,15 @@ int main(int argv, const char** argc)
   fmt::print("Current path: {}\n", path.c_str());
 
   Tokenizer tokenizer;
-  InputManager inputOne("day_05/input_01_test.data");
+  InputManager inputOne("day_05/input_01.data");
   auto input = inputOne.getInput();
   auto lines = tokenizer.parse(input, "\n");
   RulesMap rules;
   PageVec pages;
   tokenizer.day05parse(lines, rules, pages);
 
+
   OutputBuilder output;
-  fmt::print("Answer is: {}", 0xFF);
+  auto answer = output.getDay05_part01(pages,rules);
+  fmt::print("Answer is: {}", answer);
 }

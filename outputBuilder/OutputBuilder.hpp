@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+#include "Tokenizer.hpp"
+
 typedef size_t safeRaports;
 
 enum Directions {
@@ -34,6 +36,7 @@ class OutputBuilder {
   safeRaports getDay02_part01(std::vector<std::string> &tokens);
   size_t getDay03_part01(std::vector<std::string> &tokens);
   size_t getDay04_part01(std::vector<std::string> &tokens);
+  size_t getDay05_part01(PageVec &pages, RulesMap &rules);
 
 
 
