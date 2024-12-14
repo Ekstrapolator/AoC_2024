@@ -7,25 +7,10 @@
 #include <string>
 
 #include "Tokenizer.hpp"
+#include "InputManager.hpp"
+#include "2Dutils.hpp"
 
 typedef size_t safeRaports;
-
-enum Directions {
-  up = 0,
-  upRight = 1,
-  right = 2,
-  downRight = 3,
-  down = 4,
-  downLeft = 5,
-  left = 6,
-  upLeft = 7,
-};
-
-struct Point
-{
-  int row;
-  int col;
-};
 
 class OutputBuilder {
  public:
@@ -37,6 +22,7 @@ class OutputBuilder {
   size_t getDay03_part01(std::vector<std::string> &tokens);
   size_t getDay04_part01(std::vector<std::string> &tokens);
   size_t getDay05_part01(PageVec &pages, RulesMap &rules);
+  size_t getDay06_part01(PuzzleArray &puzzle, char obstacle, char guard);
 
 
 

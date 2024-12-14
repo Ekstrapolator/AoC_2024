@@ -14,4 +14,21 @@ InputManager::InputManager(const std::string filePath) {
     fileContent = std::string(std::istreambuf_iterator<char>(inputFile),
                               std::istreambuf_iterator<char>());
   }
+}
+PuzzleArray InputManager::getStaticInput() {
+  PuzzleArray puzzleArray{};
+  int row{0};
+  int col{0};
+  for (auto puzzle : fileContent)
+  {
+    if (puzzle == '\n')
+    {
+    ++row;
+    col = 0;
+    continue;
+    }
+    puzzleArray.at(row).at(col) = puzzle;
+    ++col;
+  }
+  return puzzleArray;
 };

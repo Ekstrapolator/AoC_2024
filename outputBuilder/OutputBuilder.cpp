@@ -319,6 +319,10 @@ size_t OutputBuilder::getDay05_part01(PageVec &pages, RulesMap &rules) {
   }
   return sumOfCorrectRaports;
 }
+size_t OutputBuilder::getDay06_part01(PuzzleArray &puzzle, char obstacle, char guard) {
+
+return 0xff;
+}
 
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {
   std::vector<int> ascendig = inRaport;

@@ -12,4 +12,9 @@ target_link_libraries(outputBuilder_lib
         PRIVATE
         fmt::fmt
         tokenizer_lib
+        inputManager_lib
+        2Dutils_lib
 )
+
+get_target_property(include_dirs outputBuilder_lib INCLUDE_DIRECTORIES)
+message(STATUS "Include directories for main: ${include_dirs}")
