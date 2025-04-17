@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <cstddef>
 
 enum Directions {
   up = 0,
@@ -15,8 +16,24 @@ enum Directions {
   upLeft = 7,
 };
 
-struct Point
-{
+enum class GuardDirection {
+  up = 0,
+  down = 1,
+  right = 2,
+  left = 3,
+};
+
+struct Point {
+  size_t row;
+  size_t col;
+};
+
+struct Guard {
   int row;
   int col;
+  GuardDirection direction;
+
+  bool operator==(const Guard& other) const {
+  return row == other.row && col == other.col && direction == other.direction;
+  }
 };

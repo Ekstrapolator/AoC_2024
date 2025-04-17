@@ -5,7 +5,11 @@
 #include <string>
 #include <array>
 
-typedef std::array<std::array<char, 1024>, 1024> PuzzleArray;
+struct PuzzleArray{
+ std::array<std::array<char, 1024>, 1024> data;
+  size_t rowMax;
+  size_t colMax;
+};
 
 class InputManager {
  public:

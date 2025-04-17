@@ -9,6 +9,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
+
+include(CTest)
+enable_testing()
+
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG v1.16.0
+)
+FetchContent_MakeAvailable(googletest)
+
 add_subdirectory(inputManager)
 add_subdirectory(tokenizer)
 add_subdirectory(2Dutils)

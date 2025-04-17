@@ -2,16 +2,17 @@
 // Created by wolek on 20.09.24.
 //
 
-
-#include <cctype>
-#include <cassert>
-#include <algorithm>
-#include <numeric>
-
 #include "OutputBuilder.hpp"
-#include "fmt/format.h"
+
+#include <algorithm>
+#include <cassert>
+#include <cctype>
+#include <fstream>
+#include <numeric>
 #include <regex>
 #include <set>
+
+#include "fmt/format.h"
 
 std::vector<std::pair<int, int>> OutputBuilder::getFirstAndLastNumber(std::vector<std::string> &tokens) {
   std::vector<std::pair<int, int>> numbers;
@@ -262,12 +263,12 @@ void getXmasCount(std::vector<std::string> &words, size_t &xmasCount) {
 }
 
 size_t OutputBuilder::getDay04_part01(std::vector<std::string> &tokens) {
-  auto rowsMax = tokens.size();
-  auto columnsMax = tokens.at(0).size();
+  size_t rowsMax = tokens.size();
+  size_t columnsMax = tokens.at(0).size();
   size_t xmasCount{0};
-  for(auto row{0}; row < rowsMax; row++)
+  for(size_t row{0}; row < rowsMax; row++)
   {
-    for(auto column{0}; column < columnsMax; column++)
+    for(size_t column{0}; column < columnsMax; column++)
     {
       if(tokens.at(row).at(column) == 'X')
       {
@@ -319,9 +320,41 @@ size_t OutputBuilder::getDay05_part01(PageVec &pages, RulesMap &rules) {
   }
   return sumOfCorrectRaports;
 }
-size_t OutputBuilder::getDay06_part01(PuzzleArray &puzzle, char obstacle, char guard) {
 
-return 0xff;
+
+size_t OutputBuilder::getDay06_part01(PuzzleArray &puzzle, char obstacle,
+                                      char guardSign) {
+  Guard guard = d6.getGuardPosition(puzzle);
+  fmt::print("Guard position row: {}, col: {}\n", guard.row,
+             guard.col);
+
+  fmt::print("Map boarders row: {}, col: {}\n", puzzle.rowMax,
+              puzzle.colMax);
+
+  while (d6.guardInsideMaze(puzzle, guard)) {
+    //check if next move possible
+    d6.moveGuard(puzzle, guard, obstacle);
+    //fmt::print("Guard position row: {}, col: {} dir: {}\n", guard.row,guard.col, (int)guard.direction);
+  }
+
+  //calc X occurrence in maze
+
+
+  return d6.numberOfVisitedFields(puzzle);
+}
+void OutputBuilder::writeToFile(const PuzzleArray &puzzle, std::string path) {
+  std::ofstream outFile(path, std::ios::out | std::ios::trunc);
+  if (!outFile.is_open()) {
+    fprintf(stderr, "func::%s unable to open file\n", __func__);
+    std::terminate();
+  }
+
+    for (auto row{0}; row < puzzle.rowMax; row++) {
+      for (auto col{0}; col < puzzle.colMax; col++) {
+        outFile.write(&puzzle.data.at(row).at(col), sizeof(char));
+      }
+      outFile.write("\n", sizeof(char));
+    }
 }
 
 bool OutputBuilder::isRaportSafe(std::vector<int> &inRaport) {

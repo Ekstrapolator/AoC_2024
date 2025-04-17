@@ -19,16 +19,18 @@ PuzzleArray InputManager::getStaticInput() {
   PuzzleArray puzzleArray{};
   int row{0};
   int col{0};
-  for (auto puzzle : fileContent)
+  for (auto c : fileContent)
   {
-    if (puzzle == '\n')
+    if (c == '\n')
     {
     ++row;
     col = 0;
     continue;
     }
-    puzzleArray.at(row).at(col) = puzzle;
+    puzzleArray.data.at(row).at(col) = c;
     ++col;
   }
+  puzzleArray.rowMax = row + 1;
+  puzzleArray.colMax = col;
   return puzzleArray;
 };

@@ -14,4 +14,5 @@ target_link_libraries(${APP_NAME}
         inputManager_lib
         tokenizer_lib
         outputBuilder_lib
+        2Dutils_lib
 )
