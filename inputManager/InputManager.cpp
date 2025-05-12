@@ -10,11 +10,16 @@ InputManager::InputManager(const std::string filePath) {
   if (!inputFile.is_open()) {
     fprintf(stderr, "func::%s unable to open file\n", __func__);
     std::terminate();
-  } else {
-    fileContent = std::string(std::istreambuf_iterator<char>(inputFile),
-                              std::istreambuf_iterator<char>());
   }
+  if (inputFile.peek() == std::ifstream::traits_type::eof()) {
+    fprintf(stderr, "func::%s file is empty\n", __func__);
+    std::terminate();
+
+  }
+  fileContent = std::string(std::istreambuf_iterator<char>(inputFile),
+                            std::istreambuf_iterator<char>());
 }
+
 PuzzleArray InputManager::getStaticInput() {
   PuzzleArray puzzleArray{};
   int row{0};

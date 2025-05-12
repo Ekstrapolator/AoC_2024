@@ -14,12 +14,8 @@ int main(int argv, const char** argc)
   fmt::print("Current path: {}\n", path.c_str());
 
   Tokenizer tokenizer;
-  InputManager inputOne("day_07/input_01.data");
-  auto lines = tokenizer.parse(std::move(inputOne.getInput()));
-  Resoults resoults;
-  EquationComponents components;
-
-  tokenizer.day07parse(lines , resoults, components);
+  InputManager inputOne("day_08/input_01.data");
+  auto puzzleArray = inputOne.getStaticInput();
 
 
   OutputBuilder output;

@@ -14,7 +14,7 @@ struct PuzzleArray{
 class InputManager {
  public:
   explicit InputManager(std::string filePath);
-  std::string getInput() { return fileContent; };
+  std::string getInput() { return fileContent; }
   PuzzleArray getStaticInput();
  private:
   std::string fileContent;

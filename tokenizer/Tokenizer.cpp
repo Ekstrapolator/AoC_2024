@@ -6,7 +6,7 @@
 #include <set>
 #include <cassert>
 
-std::vector<std::string> Tokenizer::parse(std::string &text, const std::string delimiters) {
+std::vector<std::string> Tokenizer::parse(std::string&& text, const std::string delimiters) {
   std::set<char> inputDelimiters(delimiters.begin(), delimiters.end());
   std::string parsed;
   for (auto letter : text) {
@@ -26,7 +26,8 @@ std::vector<std::string> Tokenizer::parse(std::string &text, const std::string d
 
   return tokens;
 }
-std::vector<std::string> Tokenizer::regParse(std::string &text, std::regex reg) {
+std::vector<std::string> Tokenizer::regParse(std::string &text,
+                                             std::regex reg) {
   std::vector<std::string> regRes;
   std::sregex_iterator it(text.begin(), text.end(), reg);
   std::sregex_iterator end;
@@ -36,6 +37,22 @@ std::vector<std::string> Tokenizer::regParse(std::string &text, std::regex reg) 
     ++it;
   }
   return regRes;
+}
+
+void regParseDay7(std::string line, std::regex reg, int index,
+                  Resoults &resoults, EquationComponents &components) {
+  std::sregex_iterator regIt(line.begin(), line.end(), reg);
+  std::sregex_iterator end;
+  if (not regIt->empty()) {
+    while (regIt != end) {
+      if (regIt->position() == 0) {
+        resoults.push_back(std::stoll(regIt->str()));
+      } else {
+        components.at(index).push_back(std::stoi(regIt->str()));
+      }
+      ++regIt;
+    }
+  }
 }
 
 void insertRuleFromLine(std::string &line, RulesMap &rules) {
@@ -62,8 +79,8 @@ void insertPages(std::string &line, PageVec &pages)
   pages.push_back(update);
 }
 
-void Tokenizer::day05parse(std::vector<std::string> &lines, RulesMap &rules, PageVec &pages) {
-
+void Tokenizer::day05parse(std::vector<std::string> &lines, RulesMap &rules,
+                           PageVec &pages) {
   for (auto &line : lines) {
     if (line.find('|') != std::string::npos) {
       insertRuleFromLine(line, rules);
@@ -72,3 +89,13 @@ void Tokenizer::day05parse(std::vector<std::string> &lines, RulesMap &rules, Pag
     }
   }
 }
+void Tokenizer::day07parse(const std::vector<std::string> &lines,
+                           Resoults &resoults, EquationComponents &components) {
+  components.resize(lines.size());
+  int index{0};
+  for (const auto& line : lines){
+    regParseDay7(line, std::regex("\\d+"), index, resoults, components);
+    index++;
+  }
+}
+
